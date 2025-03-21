@@ -513,7 +513,7 @@ predictY.hlme <- function(x, newdata, var.time, draws=FALSE, na.action=1, marg=T
             ##if(draws==FALSE)
             ##{
                 arguments <- as.list(x$call)
-                argfunction <- as.character(arguments[[1]]) 
+                argfunction <- arguments[[1]]
                 arguments[[1]] <- NULL
                 arguments[["data"]] <- newdata
                 arguments[["B"]] <- x$best 
@@ -522,7 +522,7 @@ predictY.hlme <- function(x, newdata, var.time, draws=FALSE, na.action=1, marg=T
                 if(!is.null(subject)){
                     arguments[['subject']] <- subject
                 }
-                newmodel <- do.call(argfunction, c(arguments))
+                newmodel <- do.call(eval(argfunction), c(arguments))
                 
                 res.list$pred <- newmodel$pred[,c(1,4,6+x$ng+1:x$ng)]
                 res.list$times <- NA #times
